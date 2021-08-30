@@ -5,18 +5,25 @@ import * as React from 'react'
 
 function Greeting() {
   const [name, setName] = React.useState('')
+  const [initials, setInitials] = React.useState('')
 
-  function handleChange(event) {
+  function handleNameChange(event) {
     setName(event.target.value)
+  }
+
+  function handleInitialsChange(event) {
+    setInitials(event.target.value)
   }
 
   return (
     <div>
       <form>
         <label htmlFor="name">Name: </label>
-        <input onChange={handleChange} id="name" />
+        <input onChange={handleNameChange} id="name" />
+        <label htmlFor="initials">Initials: </label>
+        <input onChange={handleInitialsChange} id="name" />
       </form>
-      {name ? <strong>Hello {name}</strong> : 'Please type your name'}
+      {name ? <strong>Hello {name} {initials}</strong> : 'Please type your name and initials'}
     </div>
   )
 }
