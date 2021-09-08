@@ -3,17 +3,21 @@
 
 import * as React from 'react'
 
-function Greeting({ initialName = '' }) {
-  const getNameLocal = () => window.localStorage.getItem('name') || name
-  const [name, setName] = React.useState(getNameLocal)
-
-  // 🐨 Here's where you'll use `React.useEffect`.
-  // The callback should set the `name` in localStorage.
-  // 💰 window.localStorage.setItem('name', name)
+function SyncLocalStorageWithState(initialName) {
+  const [name, setName] = React.useState(
+    () => window.localStorage.getItem('name') || name
+  )
 
   React.useEffect(()=> {
     window.localStorage.setItem('name', name)
   }, [name])
+  
+  return [name, setName]
+}
+
+function Greeting({ initialName = '' }) {
+
+  const [name, setName] = SyncLocalStorageWithState(initialName)
 
   function handleChange(event) {
     setName(event.target.value)
@@ -31,7 +35,7 @@ function Greeting({ initialName = '' }) {
 }
 
 function App() {
-  return <Greeting />
+  return <Greeting initialName='Juu'/>
 }
 
 export default App
