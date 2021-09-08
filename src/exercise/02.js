@@ -3,24 +3,24 @@
 
 import * as React from 'react'
 
-function SyncLocalStorageWithState(initialName) {
-  const [name, setName] = React.useState(
-    () => window.localStorage.getItem('name') || name
+function SyncLocalStorageWithState(key, initialVal='') {
+  const [state, setState] = React.useState(
+    () => window.localStorage.getItem(key) || state
   )
 
   React.useEffect(()=> {
-    window.localStorage.setItem('name', name)
-  }, [name])
+    window.localStorage.setItem(key, state)
+  }, [key, state])
   
-  return [name, setName]
+  return [state, setState]
 }
 
 function Greeting({ initialName = '' }) {
 
-  const [name, setName] = SyncLocalStorageWithState(initialName)
+  const [name, setVal] = SyncLocalStorageWithState('name', initialName)
 
   function handleChange(event) {
-    setName(event.target.value)
+    setVal(event.target.value)
   }
   
   return (
