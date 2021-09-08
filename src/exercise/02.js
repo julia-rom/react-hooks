@@ -3,8 +3,9 @@
 
 import * as React from 'react'
 
-function Greeting({initialName = ''}) {
-  const [name, setName] = React.useState(window.localStorage.getItem('name') || initialName)
+function Greeting({ initialName = '' }) {
+  const getNameLocal = () => window.localStorage.getItem('name')
+  const [name, setName] = React.useState(getNameLocal || initialName)
 
   // 🐨 Here's where you'll use `React.useEffect`.
   // The callback should set the `name` in localStorage.
