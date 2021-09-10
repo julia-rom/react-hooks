@@ -1,11 +1,14 @@
 import * as React from 'react'
-import {useLocalStorageState} from '../utils'
 
 function Board() {
-  const [squares, setSquares] = useLocalStorageState('squares', Array(9).fill(null))
+  const [squares, setSquares] = React.useState(Array(9).fill(null))
   const nextValue = calculateNextValue(squares)
   const winner = calculateWinner(squares)
   const status = calculateStatus(winner, squares, nextValue)
+
+  React.useEffect(() => {
+    JSON.parse(window.localStorage.getItem('squares')) || Array(9).fill(null)
+  })
 
   function selectSquare(square) { 
     if (winner || squares[square]) return
